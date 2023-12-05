@@ -27,7 +27,6 @@ def parseFile(inputfile):
 
 
 def findMapping(map: list, item: int) -> int:
-    print(map)
     for i in range(len(map)):
         if item >= map[i][1] and item <= map[i][1] + map[i][2] - 1:
 
@@ -48,9 +47,22 @@ def solve1(seeds, maps):
         seeds_locations.append(current_item)
     
     return seeds_locations
-        
-        
+
+def solve2(seeds, maps):
+    seeds_r_locations_min = findMapping(maps[0], seeds[0])
+    for i in range(0, len(seeds), 2):
+        for j in range(seeds[i+1]):
+            current_item = seeds[i] + j
+
+            for k in range(len(maps)):
+                current_item = findMapping(maps[k], current_item)
+
+            if current_item < seeds_r_locations_min:
+                seeds_r_locations_min = current_item
+            
+
+    return seeds_r_locations_min
 
 seeds, maps = parseFile('input')
 
-print(min(solve1(seeds, maps)))
+solve2(seeds, maps)
