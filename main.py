@@ -34,6 +34,14 @@ def findMapping(map: list, item: int) -> int:
         
     return item
 
+def reverseMapping(map: list, item: int) -> int:
+    for i in range(len(map)):
+        if item >= map[i][0] and item <= map[i][0] + map[i][2] - 1:
+
+            return item - map[i][0] + map[i][1]
+        
+    return item
+
 
 def solve1(seeds, maps):
     seeds_locations = []
@@ -58,11 +66,31 @@ def solve2(seeds, maps):
                 current_item = findMapping(maps[k], current_item)
 
             if current_item < seeds_r_locations_min:
+                print('nouveau min trouvé: ', current_item)
                 seeds_r_locations_min = current_item
-            
 
-    return seeds_r_locations_min
+def reverse_solve2(seeds, maps):
+    min_found = False
+    value_to_find = 0
+
+    while not min_found:
+
+        print(value_to_find)
+
+        current_item = value_to_find
+        for k in range(len(maps)-1, 0, -1):
+            current_item = reverseMapping(maps[k], current_item)
+
+        for i in range(0, len(seeds), 2):
+            if ( current_item >= seeds[i] ) and ( current_item < seeds[i] + seeds[i+1] ):
+                min_found = True
+                print('minimum found!')
+                return value_to_find
+        
+        value_to_find += 1
+            
+    return
 
 seeds, maps = parseFile('input')
 
-solve2(seeds, maps)
+print(reverse_solve2(seeds, maps))
