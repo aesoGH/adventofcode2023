@@ -35,7 +35,7 @@ def findMapping(map: list, item: int) -> int:
     return item
 
 def reverseMapping(map: list, item: int) -> int:
-    for i in range(len(map)):
+    for i in range(len(map)-1, -1, -1):
         if item >= map[i][0] and item <= map[i][0] + map[i][2] - 1:
 
             return item - map[i][0] + map[i][1]
@@ -75,10 +75,10 @@ def reverse_solve2(seeds, maps):
 
     while not min_found:
 
-        print(value_to_find)
+        # print(value_to_find)
 
         current_item = value_to_find
-        for k in range(len(maps)-1, 0, -1):
+        for k in range(len(maps)-1, -1, -1):
             current_item = reverseMapping(maps[k], current_item)
 
         for i in range(0, len(seeds), 2):
@@ -91,6 +91,6 @@ def reverse_solve2(seeds, maps):
             
     return
 
-seeds, maps = parseFile('input')
+seeds, maps = parseFile('05/input')
 
 print(reverse_solve2(seeds, maps))
