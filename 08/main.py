@@ -1,5 +1,3 @@
-import re
-
 def parseFile(inputfile):
     with open(inputfile, 'r') as f:
         data = f.read().splitlines()
